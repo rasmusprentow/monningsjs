@@ -2,17 +2,19 @@
 <html>
 <head>
     <title>TypeScript with RequireJS</title>
-    <script src="node_modules/phaser/build/phaser.js"></script> 
-    <script src="src/Monnings.js" ></script>
+     <script data-main="src/game" src="src/libs/require.js"></script>
+    <!--<script src="node_modules/phaser/build/phaser.js"></script> 
+    <script src="src/Monnings.js" ></script>-->
 </head>
 <body>
   <script>
-
+ window.onload = () => {
+     console.log("Loaded")
+         //   var game = new Monnings.MonningsGame();
+        }
 
 // when the page has finished loading, create our game
-window.onload = () => {
-	var game = new MonningsGame();
-}
+
   </script>
  
 </body>
