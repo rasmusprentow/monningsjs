@@ -1,0 +1,24 @@
+{
+  "name": "monningsjs",
+  "version": "1.0.0",
+  "description": "A game",
+  "main": "index.html",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rasmusprentow/monningsjs.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rasmusprentow/monningsjs/issues"
+  },
+  "homepage": "https://github.com/rasmusprentow/monningsjs#readme",
+  "dependencies": {
+    "phaser": "^2.6.2",
+    "requirejs": "^2.3.2",
+    "typings": "^1.3.3"
+  }
+}
