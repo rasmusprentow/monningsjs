@@ -1,24 +1,25 @@
 {
-  "name": "monningsjs",
+  "name": "PhaserES6Webpack",
   "version": "1.0.0",
-  "description": "A game",
-  "main": "index.html",
+  "description": "",
+  "author": "leandro cabrera <leandcabrera@gmail.com>",
+  "main": "index.js",
   "scripts": {
-    "test": "test"
+    "dev": "webpack",
+    "deploy": "webpack --config webpack.production.config.js",
+    "test": "standard"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/rasmusprentow/monningsjs.git"
-  },
-  "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/rasmusprentow/monningsjs/issues"
+  "devDependencies": {
+    "browser-sync": "^2.15.0",
+    "browser-sync-webpack-plugin": "^1.1.2",
+    "expose-loader": "^0.7.1",
+    "standard": "^8.0.0",
+    "typings": "^1.3.3",
+    "webfontloader": "^1.6.26",
+    "webpack": "^1.13.2"
   },
-  "homepage": "https://github.com/rasmusprentow/monningsjs#readme",
   "dependencies": {
-    "phaser": "^2.6.2",
-    "requirejs": "^2.3.2",
-    "typings": "^1.3.3"
+    "phaser": "^2.6.2"
   }
 }

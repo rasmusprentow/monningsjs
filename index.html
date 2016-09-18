@@ -1,21 +1,29 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-    <title>TypeScript with RequireJS</title>
-     <script data-main="src/game" src="src/libs/require.js"></script>
-    <!--<script src="node_modules/phaser/build/phaser.js"></script> 
-    <script src="src/Monnings.js" ></script>-->
-</head>
-<body>
-  <script>
- window.onload = () => {
-     console.log("Loaded")
-         //   var game = new Monnings.MonningsGame();
+    <meta charset="UTF-8">
+    <title>Phaser - ES6 - Webpack</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta http-equiv="cleartype" content="on">
+
+    <style>
+        html,
+        body {
+            margin: 0;
+            padding: 0;
         }
+    </style>
+</head>
 
-// when the page has finished loading, create our game
+<body>
 
-  </script>
- 
+    <div id="content"></div>
+
+    <script src="dist/bundle.js"></script>
+
 </body>
+
 </html>

@@ -1,8 +1,8 @@
 
 
 /// <reference path="../node_modules/phaser/typescript/phaser.d.ts" />
-import Phaser = require("phaser")
-import { Monning} from "./Monning"
+import * as Phaser from "phaser"
+import { Monning} from "./sprites/Monning"
 
 
 class MonningsGame {
@@ -24,14 +24,12 @@ class MonningsGame {
 
     create() {
         this.game.physics.startSystem(Phaser.Physics.ARCADE);
-
-        //  A simple background for our game
-         this.game.add.sprite(0, 0, 'sky');
+        this.game.add.sprite(0, 0, 'sky');
          
 
          this.platforms = this.game.add.group();
 
-    //  We will enable physics for any object that is created in this group
+        //  We will enable physics for any object that is created in this group
         this.platforms.enableBody = true;
 
         // Here we create the ground.
@@ -46,19 +44,20 @@ class MonningsGame {
         //  Now let's create two ledges
         var ledge = this.platforms.create(790, this.game.world.height - 84, 'ground');
         ledge.body.immovable = true;
-          ledge = this.platforms.create(-30, this.game.world.height - 84, 'ground');
+        ledge = this.platforms.create(-30, this.game.world.height - 84, 'ground');
         ledge.body.immovable = true;
         ledge = this.platforms.create(-150, 300, 'ground');
         ledge.body.immovable = true;
 
-        this.monning = new Monning(this.game);
+        this.monning = new Monning(this.game, 32, this.game.world.height - 150, 'dude');
+        this.game.add.existing(this.monning);
 
     }
 
     update() {
-        this.game.physics.arcade.collide(this.monning.sprite, this.platforms);
-
-        this.monning.update();
+        this.game.physics.arcade.collide(this.monning, this.platforms);
+        this.game.debug.spriteInfo(this.monning, 32, 32)
+      
 
     }
  
