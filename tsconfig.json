@@ -5,10 +5,11 @@
         "noImplicitAny": false,
         "sourceMap": true,
         "moduleResolution": "node",
-        "isolatedModules" : true
-    },
+        "isolatedModules" : true,
+        "allowSyntheticDefaultImports": true,
+        "emitDecoratorMetadata": true,
+       "experimentalDecorators": true 
+    }
 
-    "exclude": [
-        "node_modules"
-    ]
+ 
 }

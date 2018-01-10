@@ -1,10 +1,9 @@
-"use strict";
 /// <reference path="../node_modules/phaser/typescript/phaser.d.ts" />
-var Phaser = require("phaser");
+"use strict";
 var Monning_1 = require("./sprites/Monning");
 var MonningsGame = (function () {
     function MonningsGame() {
-        this.game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: this.preload, create: this.create, update: this.update });
+        this.game = new Phaser.Game(800, 600, Phaser.AUTO, 'content', { preload: this.preload, create: this.create, update: this.update });
     }
     MonningsGame.prototype.preload = function () {
         this.game.load.image('sky', 'assets/sky.png');
@@ -31,7 +30,7 @@ var MonningsGame = (function () {
         ledge.body.immovable = true;
         ledge = this.platforms.create(-150, 300, 'ground');
         ledge.body.immovable = true;
-        this.monning = new Monning_1.Monning(this.game, 32, this.game.world.height - 150, 'dude');
+        this.monning = new Monning_1.default(this.game, 32, this.game.world.height - 150, 'dude');
         this.game.add.existing(this.monning);
     };
     MonningsGame.prototype.update = function () {

@@ -2,11 +2,11 @@
 import * as Phaser from "phaser"
 
 
-class Monning extends Phaser.Sprite {
+export default class  extends Phaser.Sprite {
 
    
     direction = 1; // 1 = right, -1 = left;
-    static walkingSpeed = 150;
+    walkingSpeed = 150;
 
     constructor(game: Phaser.Game, x:number, y: number, asset) {
         super(game, x, y, asset)
@@ -46,7 +46,7 @@ class Monning extends Phaser.Sprite {
             this.direction = -1;
         }
 
-        body.velocity.x = this.direction * Monning.walkingSpeed;
+        body.velocity.x = this.direction * this.walkingSpeed;
         if(this.direction === 1) {
             this.animations.play('right')
         }   else if(this.direction === -1) {
@@ -59,6 +59,3 @@ class Monning extends Phaser.Sprite {
 
     
 }
-
-
-export  { Monning }

@@ -22842,13 +22842,12 @@
   \*************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
 	/// <reference path="../node_modules/phaser/typescript/phaser.d.ts" />
-	var Phaser = __webpack_require__(/*! phaser */ 7);
+	"use strict";
 	var Monning_1 = __webpack_require__(/*! ./sprites/Monning */ 11);
 	var MonningsGame = (function () {
 	    function MonningsGame() {
-	        this.game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: this.preload, create: this.create, update: this.update });
+	        this.game = new Phaser.Game(800, 600, Phaser.AUTO, 'content', { preload: this.preload, create: this.create, update: this.update });
 	    }
 	    MonningsGame.prototype.preload = function () {
 	        this.game.load.image('sky', 'assets/sky.png');
@@ -22875,7 +22874,7 @@
 	        ledge.body.immovable = true;
 	        ledge = this.platforms.create(-150, 300, 'ground');
 	        ledge.body.immovable = true;
-	        this.monning = new Monning_1.Monning(this.game, 32, this.game.world.height - 150, 'dude');
+	        this.monning = new Monning_1.default(this.game, 32, this.game.world.height - 150, 'dude');
 	        this.game.add.existing(this.monning);
 	    };
 	    MonningsGame.prototype.update = function () {
@@ -103471,11 +103470,12 @@
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
 	var Phaser = __webpack_require__(/*! phaser */ 7);
-	var Monning = (function (_super) {
-	    __extends(Monning, _super);
-	    function Monning(game, x, y, asset) {
+	var default_1 = (function (_super) {
+	    __extends(default_1, _super);
+	    function default_1(game, x, y, asset) {
 	        _super.call(this, game, x, y, asset);
 	        this.direction = 1; // 1 = right, -1 = left;
+	        this.walkingSpeed = 150;
 	        //  We need to enable physics on the player
 	        game.physics.arcade.enable(this);
 	        //  Player physics properties. Give the little guy a slight bounce.
@@ -103487,14 +103487,14 @@
 	        this.inputEnabled = true;
 	        // this.events.onInputDown(this.onInputDown);
 	    }
-	    Monning.prototype.create = function () {
+	    default_1.prototype.create = function () {
 	    };
-	    Monning.prototype.onInputDown = function () {
+	    default_1.prototype.onInputDown = function () {
 	        if (this.body.touching.down) {
 	            this.body.velocity.y = -200;
 	        }
 	    };
-	    Monning.prototype.update = function () {
+	    default_1.prototype.update = function () {
 	        var body = this.body;
 	        if (body.touching.left) {
 	            this.direction = 1;
@@ -103502,7 +103502,7 @@
 	        if (body.touching.right) {
 	            this.direction = -1;
 	        }
-	        body.velocity.x = this.direction * Monning.walkingSpeed;
+	        body.velocity.x = this.direction * this.walkingSpeed;
 	        if (this.direction === 1) {
 	            this.animations.play('right');
 	        }
@@ -103513,10 +103513,10 @@
 	            this.animations.stop();
 	        }
 	    };
-	    Monning.walkingSpeed = 150;
-	    return Monning;
+	    return default_1;
 	}(Phaser.Sprite));
-	exports.Monning = Monning;
+	Object.defineProperty(exports, "__esModule", { value: true });
+	exports.default = default_1;
 	//# sourceMappingURL=Monning.js.map
 
 /***/ }

@@ -1,8 +1,8 @@
 
 
 /// <reference path="../node_modules/phaser/typescript/phaser.d.ts" />
-import * as Phaser from "phaser"
-import { Monning} from "./sprites/Monning"
+
+import  Monning from "./sprites/Monning"
 
 
 class MonningsGame {
@@ -12,7 +12,7 @@ class MonningsGame {
     private monning: Monning;
 
     constructor() {
-        this.game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: this.preload, create: this.create, update: this.update });
+        this.game = new Phaser.Game(800, 600, Phaser.AUTO, 'content', { preload: this.preload, create: this.create, update: this.update });
     }
 
     preload() {
