@@ -1,58 +1,86 @@
 /* globals __DEV__ */
-import Phaser from 'phaser'
+import Phaser from 'phaser-ce'
 import Monning from '../sprites/Monning'
 
 export default class extends Phaser.State {
   init () {}
+
   preload () {
-      this.load.image('sky', 'assets/sky.png');
-      this.load.image('ground', 'assets/platform.png');
-      this.load.image('star', 'assets/star.png');
-      this.load.spritesheet('dude', 'assets/dude.png', 32, 48);
 
   }
 
   create () {
-      this.game.physics.startSystem(Phaser.Physics.ARCADE);
-      this.game.add.sprite(0, 0, 'sky');
+    //  this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
 
-      this.platforms = this.game.add.group();
+    this.game.physics.startSystem(Phaser.Physics.ARCADE)
 
-      //  We will enable physics for any object that is created in this group
-      this.platforms.enableBody = true;
+    this.map = this.game.add.tilemap('demo1')
 
-      // Here we create the ground.
-      var ground = this.platforms.create(0, this.game.world.height - 64, 'ground');
+    //the first parameter is the tileset name as specified in Tiled, the second is the key to the asset
+    this.map.addTilesetImage('generic', 'tiles')
 
-      //  Scale it to fit the width of the game (the original sprite is 400x32 in size)
-      ground.scale.setTo(2, 2);
+    //create layer
+    this.backgroundlayer = this.map.createLayer('backgroundLayer')
+    this.blockedLayer = this.map.createLayer('blockedLayer')
 
-      //  This stops it from falling away when you jump on it
-      ground.body.immovable = true;
+    //collision on blockedLayer
+    this.map.setCollisionBetween(0, 10000, true, 'blockedLayer')
 
-      //  Now let's create two ledges
-      var ledge = this.platforms.create(790, this.world.height - 84, 'ground');
-      ledge.body.immovable = true;
-      ledge = this.platforms.create(-30, this.game.world.height - 84, 'ground');
-      ledge.body.immovable = true;
-      ledge = this.platforms.create(-150, 300, 'ground');
-      ledge.body.immovable = true;
+    //resizes the game world to match the layer dimensions
+    this.backgroundlayer.resizeWorld()
 
-      this.monning = new Monning(this.game, 32, this.game.world.height - 150, 'dude');
-      this.game.add.existing(this.monning);
+    const startPos = findObjectsByType('startPosition', this.map, 'objectLayer')[0]
+    // this.backgroundLayer.order
+    console.log(startPos)
+    // this.game.add.sprite(0, 0, 'sky')
+    //
+    // this.platforms = this.game.add.group()
+    //
+    // //  We will enable physics for any object that is created in this group
+    // this.platforms.enableBody = true
+    //
+    // // Here we create the ground.
+    // var ground = this.platforms.create(0, this.game.world.height - 64, 'ground')
+    //
+    // //  Scale it to fit the width of the game (the original sprite is 400x32 in size)
+    // ground.scale.setTo(2, 2)
+    //
+    // //  This stops it from falling away when you jump on it
+    // ground.body.immovable = true
+    //
+    // //  Now let's create two ledges
+    // var ledge = this.platforms.create(790, this.world.height - 84, 'ground')
+    // ledge.body.immovable = true
+    // ledge = this.platforms.create(-30, this.game.world.height - 84, 'ground')
+    // ledge.body.immovable = true
+    // ledge = this.platforms.create(-150, 300, 'ground')
+    // ledge.body.immovable = true
+
+    this.monning = new Monning(this.game, startPos.x, startPos.y, 'dude')
+    this.game.add.existing(this.monning)
+    this.game.camera.follow(this.monning)
 
   }
 
+  update () {
+    console.log(this.game.physics.arcade.collide(this.monning, this.blockedLayer))
 
-    update() {
-        this.game.physics.arcade.collide(this.monning, this.platforms);
+  }
 
-
-    }
-
-    render () {
+  render () {
     if (__DEV__) {
       this.game.debug.spriteInfo(this.monning, 32, 32)
     }
   }
+}
+
+function findObjectsByType (type, map, layer) {
+  var result = new Array()
+  map.objects[layer].forEach((element) => {
+    if (element.properties && element.properties.type === type) {
+      element.y -= map.tileHeight
+      result.push(element)
+    }
+  })
+  return result
 }
