@@ -112091,7 +112091,6 @@ module.exports = Math.scale || function scale(x, inLow, inHigh, outLow, outHigh)
 
 
 class Actor extends __WEBPACK_IMPORTED_MODULE_0_phaser_ce___default.a.Sprite {
-
   constructor(game, x, y, asset) {
     super(game, x, y, asset);
   }
@@ -112109,7 +112108,7 @@ class Actor extends __WEBPACK_IMPORTED_MODULE_0_phaser_ce___default.a.Sprite {
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(/*! babel-polyfill */132);
-module.exports = __webpack_require__(/*! /Users/simone/monningsjs/src/main.js */334);
+module.exports = __webpack_require__(/*! /Users/prentow/Documents/privat/monningsjs/src/main.js */334);
 
 
 /***/ }),
@@ -118786,7 +118785,6 @@ const Direction = {
 
 
 class Actor extends __WEBPACK_IMPORTED_MODULE_0_phaser_ce___default.a.Sprite {
-
   constructor(game, x, y, asset) {
     super(game, x, y, asset);
   }
@@ -118799,11 +118797,7 @@ class Actor extends __WEBPACK_IMPORTED_MODULE_0_phaser_ce___default.a.Sprite {
 /*!*************************!*\
   !*** ./src/ToolMenu.js ***!
   \*************************/
-<<<<<<< HEAD
-/*! exports provided: Action, JumpAction, HasteAction, ActionManager, ToolMenu, JumpButton */
-=======
 /*! exports provided: Action, JumpAction, HasteAction, ActionManager, ActionMenu */
->>>>>>> Add actor manager
 /*! exports used: ActionManager */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -118840,18 +118834,6 @@ class JumpAction extends Action {
 }
 /* unused harmony export JumpAction */
 
-class HasteAction extends Action {
-
-  constructor(game) {
-    super(game, 'jump');
-  }
-
-  execute(actor) {
-    actor.body.velocity.y = -200;
-  }
-}
-/* unused harmony export HasteAction */
-
 
 class HasteAction extends Action {
 
@@ -118872,10 +118854,19 @@ class HasteAction extends Action {
 class ActionManager {
 
   constructor(game) {
-    this._menu = new ToolMenu(game);
-    const action = new HasteAction(game);
-    this._menu.addButton(action.key, new JumpButton(game, () => this.setAction(action)));
-    //this._menu.addButton('test', new JumpButton(game, () => this.setAction(action)))
+    this._menu = new ActionMenu(game);
+
+    const action1 = new JumpAction(game);
+    // Should read actions from config
+    this._addButton('jump-button', action1);
+    this._addButton('jump-button', new HasteAction(game));
+
+    this._menu.setActive(action1.key);
+    this._activeAction = action1;
+  }
+
+  _addButton(assetKey, action) {
+    this._menu.addButton(action.key, assetKey, () => this.setAction(action));
   }
 
   get menu() {
@@ -118894,35 +118885,41 @@ class ActionManager {
 /* harmony export (immutable) */ __webpack_exports__["a"] = ActionManager;
 
 
-class ToolMenu extends __WEBPACK_IMPORTED_MODULE_0_phaser_ce___default.a.Group {
+class ActionMenu extends __WEBPACK_IMPORTED_MODULE_0_phaser_ce___default.a.Group {
 
   constructor(game) {
     super(game, null, 'ToolMenu');
-
+    this._buttonOffset = 50;
     this._buttons = new Map();
     this.fixedToCamera = true;
     this.cameraOffset.setTo(0, 0);
   }
 
-  addButton(key, button) {
+  addButton(key, assetKey, callback) {
+    const x = this._buttonOffset * this._buttons.size;
+    const button = new Button(this.game, x, 0, assetKey, callback);
     this._buttons.set(key, button);
     this.add(button);
   }
 
   setActive(key) {
-
     for (const btn of this._buttons.values()) {
       console.log(btn);
       btn.setActive(false);
     }
 
     const btn = this._buttons.get(key);
+    console.log(btn);
     if (btn) {
       btn.setActive(true);
     }
   }
+
+  activateFirst() {
+    this.setActive(this._buttons.keys().first);
+  }
 }
-/* unused harmony export ToolMenu */
+/* unused harmony export ActionMenu */
 
 
 class Button extends __WEBPACK_IMPORTED_MODULE_0_phaser_ce___default.a.Button {
@@ -118932,20 +118929,12 @@ class Button extends __WEBPACK_IMPORTED_MODULE_0_phaser_ce___default.a.Button {
 
   setActive(val) {
     if (val) {
-      this.setFrames(1, 2, 0);
+      this.setFrames(2, 2, 2);
     } else {
       this.setFrames(1, 0, 2);
     }
   }
 }
-
-class JumpButton extends Button {
-  constructor(game, callback) {
-    super(game, 50, 50, 'jump-button', callback, game);
-  }
-}
-/* unused harmony export JumpButton */
-
 
 /***/ }),
 /* 344 */
