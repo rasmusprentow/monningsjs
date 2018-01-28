@@ -3,8 +3,12 @@ import Phaser from 'phaser-ce'
 import Monning from '../sprites/Monning'
 import { ActionManager } from '../ToolMenu'
 import { Actor } from '../sprites/Actor'
+import ActorManager from '../ActorManager'
 
 export default class extends Phaser.State {
+
+  monnings: Monning[]
+
   init () {}
 
   preload () {
@@ -61,25 +65,34 @@ export default class extends Phaser.State {
     const menu = actions.menu
 
     this.game.add.existing(menu)
+    this.monnings = []
 
-    this.monning = new Monning(this.game, startPos.x, startPos.y, 'dude')
-
-    this.monning.events.onInputDown.add((e: any) => {
-      console.log(e)
-        actions.activeAction.execute(this.monning)
+    this.actorManager = new ActorManager(() => {
+      const monning = new Monning(this.game, startPos.x, startPos.y, 'dude');
+      monning.events.onInputDown.add((e: any) => {
+        console.log(e)
+          actions.activeAction.execute(monning)
+        }
+      )
+      this.game.add.existing(monning)
+      if (this.monnings.length === 0) {
+        this.game.camera.follow(monning)
       }
-    )
-    this.game.add.existing(this.monning)
-    this.game.camera.follow(this.monning)
+      this.monnings.push(monning)
+    }, 50, 100)
+
   }
 
-  update () {
-    this.game.physics.arcade.collide(this.monning, this.blockedLayer)
+  update() {
+    this.monnings.forEach((monning) => {
+      this.game.physics.arcade.collide(monning, this.blockedLayer)
+    })
+    this.actorManager.conditionallyGetMonning()
   }
 
   render () {
-    if (__DEV__) {
-      this.game.debug.spriteInfo(this.monning, 32, 32)
+    if (__DEV__ && this.monnings.length > 0) {
+     // this.game.debug.spriteInfo(this.monnings.first, 32, 32)
     }
   }
 }

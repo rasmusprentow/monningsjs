@@ -147,7 +147,7 @@
 /******/ 	__webpack_require__.oe = function(err) { console.error(err); throw err; };
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 345);
+/******/ 	return __webpack_require__(__webpack_require__.s = 346);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -21607,7 +21607,7 @@ World.prototype.raycast = function(result, ray){
 
 /***/ }),
 
-/***/ 345:
+/***/ 346:
 /*!******************************************!*\
   !*** multi pixi p2 phaser webfontloader ***!
   \******************************************/
@@ -21617,13 +21617,13 @@ World.prototype.raycast = function(result, ray){
 
 __webpack_require__(/*! pixi */126);
 __webpack_require__(/*! p2 */127);
-__webpack_require__(/*! phaser */346);
+__webpack_require__(/*! phaser */347);
 module.exports = __webpack_require__(/*! webfontloader */129);
 
 
 /***/ }),
 
-/***/ 346:
+/***/ 347:
 /*!*********************************************************************!*\
   !*** ./node_modules/phaser-ce/build/custom/phaser-split.js-exposed ***!
   \*********************************************************************/
@@ -21631,12 +21631,12 @@ module.exports = __webpack_require__(/*! webfontloader */129);
 /*! all exports used */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(global) {module.exports = global["Phaser"] = __webpack_require__(/*! -!./phaser-split.js */ 347);
+/* WEBPACK VAR INJECTION */(function(global) {module.exports = global["Phaser"] = __webpack_require__(/*! -!./phaser-split.js */ 348);
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./../../../webpack/buildin/global.js */ 47)))
 
 /***/ }),
 
-/***/ 347:
+/***/ 348:
 /*!*************************************************************!*\
   !*** ./node_modules/phaser-ce/build/custom/phaser-split.js ***!
   \*************************************************************/

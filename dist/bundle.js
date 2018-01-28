@@ -118448,7 +118448,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__states_Boot__ = __webpack_require__(/*! ./states/Boot */ 337);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__states_Splash__ = __webpack_require__(/*! ./states/Splash */ 338);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__states_Game__ = __webpack_require__(/*! ./states/Game */ 340);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__config__ = __webpack_require__(/*! ./config */ 344);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__config__ = __webpack_require__(/*! ./config */ 345);
 
 
 
@@ -118603,13 +118603,16 @@ const centerGameObjects = objects => {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__sprites_Monning__ = __webpack_require__(/*! ../sprites/Monning */ 341);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ToolMenu__ = __webpack_require__(/*! ../ToolMenu */ 343);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__sprites_Actor__ = __webpack_require__(/*! ../sprites/Actor */ 130);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ActorManager__ = __webpack_require__(/*! ../ActorManager */ 344);
 /* globals __DEV__ */
 
 
 
 
 
+
 /* harmony default export */ __webpack_exports__["a"] = (class extends __WEBPACK_IMPORTED_MODULE_0_phaser_ce___default.a.State {
+
   init() {}
 
   preload() {}
@@ -118664,24 +118667,32 @@ const centerGameObjects = objects => {
     const menu = actions.menu;
 
     this.game.add.existing(menu);
+    this.monnings = [];
 
-    this.monning = new __WEBPACK_IMPORTED_MODULE_1__sprites_Monning__["a" /* default */](this.game, startPos.x, startPos.y, 'dude');
-
-    this.monning.events.onInputDown.add(e => {
-      console.log(e);
-      actions.activeAction.execute(this.monning);
-    });
-    this.game.add.existing(this.monning);
-    this.game.camera.follow(this.monning);
+    this.actorManager = new __WEBPACK_IMPORTED_MODULE_4__ActorManager__["a" /* default */](() => {
+      const monning = new __WEBPACK_IMPORTED_MODULE_1__sprites_Monning__["a" /* default */](this.game, startPos.x, startPos.y, 'dude');
+      monning.events.onInputDown.add(e => {
+        console.log(e);
+        actions.activeAction.execute(monning);
+      });
+      this.game.add.existing(monning);
+      if (this.monnings.length === 0) {
+        this.game.camera.follow(monning);
+      }
+      this.monnings.push(monning);
+    }, 50, 100);
   }
 
   update() {
-    this.game.physics.arcade.collide(this.monning, this.blockedLayer);
+    this.monnings.forEach(monning => {
+      this.game.physics.arcade.collide(monning, this.blockedLayer);
+    });
+    this.actorManager.conditionallyGetMonning();
   }
 
   render() {
-    if (true) {
-      this.game.debug.spriteInfo(this.monning, 32, 32);
+    if (true && this.monnings.length > 0) {
+      // this.game.debug.spriteInfo(this.monnings.first, 32, 32)
     }
   }
 });
@@ -118788,7 +118799,11 @@ class Actor extends __WEBPACK_IMPORTED_MODULE_0_phaser_ce___default.a.Sprite {
 /*!*************************!*\
   !*** ./src/ToolMenu.js ***!
   \*************************/
+<<<<<<< HEAD
 /*! exports provided: Action, JumpAction, HasteAction, ActionManager, ToolMenu, JumpButton */
+=======
+/*! exports provided: Action, JumpAction, HasteAction, ActionManager, ActionMenu */
+>>>>>>> Add actor manager
 /*! exports used: ActionManager */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -118824,6 +118839,18 @@ class JumpAction extends Action {
   }
 }
 /* unused harmony export JumpAction */
+
+class HasteAction extends Action {
+
+  constructor(game) {
+    super(game, 'jump');
+  }
+
+  execute(actor) {
+    actor.body.velocity.y = -200;
+  }
+}
+/* unused harmony export HasteAction */
 
 
 class HasteAction extends Action {
@@ -118922,6 +118949,44 @@ class JumpButton extends Button {
 
 /***/ }),
 /* 344 */
+/*!*****************************!*\
+  !*** ./src/ActorManager.js ***!
+  \*****************************/
+/*! exports provided: default */
+/*! exports used: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+
+
+class ActorManager {
+
+  constructor(creator, total, delay = 10) {
+    this.game = game;
+    this.total = total;
+    this.delay = delay;
+    this.onScreen = 0;
+    this.countOnLastEntrance = 0;
+    this.frameCount = 0;
+    this.creator = creator;
+  }
+
+  conditionallyGetMonning() {
+    console.log(this.total, this.onScreen);
+    if (this.total > this.onScreen && (this.frameCount > this.countOnLastEntrance + this.delay || this.frameCount == 0)) {
+      this.countOnLastEntrance = this.frameCount;
+      this.onScreen++;
+      this.creator();
+    }
+    this.frameCount++;
+  }
+
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = ActorManager;
+
+
+/***/ }),
+/* 345 */
 /*!***********************!*\
   !*** ./src/config.js ***!
   \***********************/

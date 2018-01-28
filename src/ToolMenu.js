@@ -26,6 +26,14 @@ export class JumpAction extends Action {
     actor.body.velocity.y = -200
   }
 }
+export class HasteAction extends Action {
+
+  constructor (game: Phaser.Game) { super(game, 'jump')}
+
+  execute (actor: Actor): void {
+    actor.body.velocity.y = -200
+  }
+}
 
 export class HasteAction extends Action {
 
