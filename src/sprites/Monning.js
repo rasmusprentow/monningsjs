@@ -1,8 +1,6 @@
 import Phaser from 'phaser-ce'
 import {Actor} from './actor'
 
-
-
 const Direction = {
   left: -1,
   right: 1
@@ -24,12 +22,9 @@ export default class extends Actor {
     this.animations.add('left', [0, 1, 2, 3], 10, true)
     this.animations.add('right', [5, 6, 7, 8], 10, true)
     this.inputEnabled = true
-
   }
 
-  create () {
-
-  }
+  create () {}
 
   update () {
     const contact = this.body.blocked

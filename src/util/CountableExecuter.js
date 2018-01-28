@@ -2,7 +2,6 @@
  * Executed the input every nth time it is called.
  */
 export default class CountableExecutor {
-
   total: number
   delay: number
 
@@ -18,16 +17,15 @@ export default class CountableExecutor {
     this.func = func
   }
 
-
-
   execute() {
-    if (this.total > this.onScreen && (this.frameCount > this.executions + this.delay || this.frameCount === 0)) {
+    if (
+      this.total > this.onScreen &&
+      (this.frameCount > this.executions + this.delay || this.frameCount === 0)
+    ) {
       this.executions = this.frameCount
       this.onScreen++
       this.func()
     }
     this.frameCount++
   }
-
-
 }

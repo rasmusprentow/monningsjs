@@ -2,7 +2,7 @@ import Button from './Button'
 export default class extends Phaser.Group {
   _buttons: Map<string, Button>
 
-  spacing: number;
+  spacing: number
 
   constructor (game: Phaser.Game) {
     super(game, null, 'ToolMenu')
@@ -25,7 +25,7 @@ export default class extends Phaser.Group {
     }
 
     const btn = this._buttons.get(key)
-    if(btn) {
+    if (btn) {
       btn.setActive(true)
     }
   }

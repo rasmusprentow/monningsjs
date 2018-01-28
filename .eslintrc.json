@@ -2,7 +2,8 @@
   "parser": "babel-eslint",
   "extends": "standard",
   "plugins": [
-    "flowtype"
+    "flowtype",
+    "prettier"
   ],
   "parserOptions": {
     "ecmaVersion": 6,
@@ -77,6 +78,16 @@
       "always"
     ],
     "flowtype/use-flow-type": 1,
-    "flowtype/valid-syntax": 1
+    "flowtype/valid-syntax": 1,
+    "prettier/prettier": [
+      "error",
+      {
+        "printWidth": 100,
+        "bracketSpacing": false,
+        "singleQuote": true,
+        "trailingComma": "es5",
+        "semi": false
+      }
+    ]
   }
 }

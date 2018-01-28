@@ -1,4 +1,3 @@
-
 import Phaser from 'phaser-ce'
 
 export class Actor extends Phaser.Sprite {

@@ -1,15 +1,13 @@
-import { Action, HasteAction, JumpAction } from './Action'
+import {Action, HasteAction, JumpAction} from './Action'
 import ActionMenu from './ActionMenu'
 
 export default class {
-
   _activeAction: Action
 
   _menu: ActionMenu
 
   constructor (game: Phaser.Game) {
     this._menu = new ActionMenu(game)
-
 
     const action1 = new JumpAction(game)
     // Should read actions from config
@@ -28,7 +26,9 @@ export default class {
     return this._menu
   }
 
-  get activeAction (): Action { return this._activeAction }
+  get activeAction (): Action {
+    return this._activeAction
+  }
 
   setAction (action: Action) {
     this._menu.setActive(action.key)
