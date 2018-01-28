@@ -1,9 +1,8 @@
 /* globals __DEV__ */
 import Phaser from 'phaser-ce'
 import Monning from '../sprites/Monning'
-import { ActionManager } from '../ToolMenu'
-import { Actor } from '../sprites/Actor'
-import ActorManager from '../ActorManager'
+import ActionManager from '../actions/ActionManager'
+import CountableExecuter from '../util/CountableExecuter'
 
 export default class extends Phaser.State {
 
@@ -35,39 +34,15 @@ export default class extends Phaser.State {
     // resizes the game world to match the layer dimensions
     this.backgroundlayer.resizeWorld()
 
+
     const startPos = findObjectsByType('startPosition', this.map, 'objectLayer')[0]
-    // this.backgroundLayer.order
-    console.log(startPos)
-    // this.game.add.sprite(0, 0, 'sky')
-    //
-    // this.platforms = this.game.add.group()
-    //
-    // //  We will enable physics for any object that is created in this group
-    // this.platforms.enableBody = true
-    //
-    // // Here we create the ground.
-    // var ground = this.platforms.create(0, this.game.world.height - 64, 'ground')
-    //
-    // //  Scale it to fit the width of the game (the original sprite is 400x32 in size)
-    // ground.scale.setTo(2, 2)
-    //
-    // //  This stops it from falling away when you jump on it
-    // ground.body.immovable = true
-    //
-    // //  Now let's create two ledges
-    // var ledge = this.platforms.create(790, this.world.height - 84, 'ground')
-    // ledge.body.immovable = true
-    // ledge = this.platforms.create(-30, this.game.world.height - 84, 'ground')
-    // ledge.body.immovable = true
-    // ledge = this.platforms.create(-150, 300, 'ground')
-    // ledge.body.immovable = true
     const actions = new ActionManager(this.game)
     const menu = actions.menu
 
     this.game.add.existing(menu)
     this.monnings = []
 
-    this.actorManager = new ActorManager(() => {
+    this.executor = new CountableExecuter(() => {
       const monning = new Monning(this.game, startPos.x, startPos.y, 'dude');
       monning.events.onInputDown.add((e: any) => {
         console.log(e)
@@ -87,7 +62,7 @@ export default class extends Phaser.State {
     this.monnings.forEach((monning) => {
       this.game.physics.arcade.collide(monning, this.blockedLayer)
     })
-    this.actorManager.conditionallyGetMonning()
+    this.executor.execute()
   }
 
   render () {
