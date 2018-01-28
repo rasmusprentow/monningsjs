@@ -1,11 +1,14 @@
 import Phaser from 'phaser-ce'
+import {Actor} from './actor'
+
+
 
 const Direction = {
   left: -1,
   right: 1
 }
 
-export default class extends Phaser.Sprite {
+export default class extends Actor {
   constructor (game: Phaser.Game, x: number, y: number, asset) {
     super(game, x, y, asset)
     this.direction = Direction.right
@@ -25,12 +28,6 @@ export default class extends Phaser.Sprite {
 
   create () {
 
-  }
-
-  onInputDown () {
-    if (this.body.touching.down) {
-      this.body.velocity.y = -200
-    }
   }
 
   update () {

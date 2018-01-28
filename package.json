@@ -23,17 +23,21 @@
     "clean-webpack-plugin": "^0.1.17",
     "eslint": "^4.15.0",
     "eslint-config-standard": "^10.2.1",
+    "eslint-plugin-flowtype": "^2.41.0",
     "eslint-plugin-import": "^2.7.0",
     "eslint-plugin-node": "^5.1.1",
     "eslint-plugin-promise": "^3.5.0",
     "eslint-plugin-standard": "^3.0.1",
     "expose-loader": "^0.7.3",
+    "flow": "^0.2.3",
     "flow-bin": "^0.63.1",
+    "flow-cli": "0.0.0-pre",
     "html-webpack-plugin": "^2.30.1",
     "webpack": "^3.4.1"
   },
   "dependencies": {
     "phaser-ce": "^2.9.4",
+    "rxjs": "^5.5.6",
     "webfontloader": "^1.6.28"
   }
 }

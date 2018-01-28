@@ -1,6 +1,8 @@
 /* globals __DEV__ */
 import Phaser from 'phaser-ce'
 import Monning from '../sprites/Monning'
+import { ActionManager } from '../ToolMenu'
+import { Actor } from '../sprites/Actor'
 
 export default class extends Phaser.State {
   init () {}
@@ -10,23 +12,23 @@ export default class extends Phaser.State {
   }
 
   create () {
-    //  this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+    // this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
 
     this.game.physics.startSystem(Phaser.Physics.ARCADE)
 
     this.map = this.game.add.tilemap('demo1')
 
-    //the first parameter is the tileset name as specified in Tiled, the second is the key to the asset
+    // the first parameter is the tileset name as specified in Tiled, the second is the key to the asset
     this.map.addTilesetImage('generic', 'tiles')
 
-    //create layer
+    // create layer
     this.backgroundlayer = this.map.createLayer('backgroundLayer')
     this.blockedLayer = this.map.createLayer('blockedLayer')
 
-    //collision on blockedLayer
+    // collision on blockedLayer
     this.map.setCollisionBetween(0, 10000, true, 'blockedLayer')
 
-    //resizes the game world to match the layer dimensions
+    // resizes the game world to match the layer dimensions
     this.backgroundlayer.resizeWorld()
 
     const startPos = findObjectsByType('startPosition', this.map, 'objectLayer')[0]
@@ -55,16 +57,24 @@ export default class extends Phaser.State {
     // ledge.body.immovable = true
     // ledge = this.platforms.create(-150, 300, 'ground')
     // ledge.body.immovable = true
+    const actions = new ActionManager(this.game)
+    const menu = actions.menu
+
+    this.game.add.existing(menu)
 
     this.monning = new Monning(this.game, startPos.x, startPos.y, 'dude')
+
+    this.monning.events.onInputDown.add((e: any) => {
+      console.log(e)
+        actions.activeAction.execute(this.monning)
+      }
+    )
     this.game.add.existing(this.monning)
     this.game.camera.follow(this.monning)
-
   }
 
   update () {
-    console.log(this.game.physics.arcade.collide(this.monning, this.blockedLayer))
-
+    this.game.physics.arcade.collide(this.monning, this.blockedLayer)
   }
 
   render () {
@@ -74,8 +84,8 @@ export default class extends Phaser.State {
   }
 }
 
-function findObjectsByType (type, map, layer) {
-  var result = new Array()
+function findObjectsByType (type: String, map: Phaser.Tilemap, layer: String): any {
+  const result = []
   map.objects[layer].forEach((element) => {
     if (element.properties && element.properties.type === type) {
       element.y -= map.tileHeight
