@@ -2,11 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b509b10e-e4fc-495e-81ed-996ff3454775" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/dist/bundle.js" afterPath="$PROJECT_DIR$/dist/bundle.js" />
-      <change beforePath="$PROJECT_DIR$/dist/vendor.bundle.js" afterPath="$PROJECT_DIR$/dist/vendor.bundle.js" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" afterPath="$PROJECT_DIR$/package-lock.json" />
-      <change beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
-      <change beforePath="$PROJECT_DIR$/yarn.lock" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/ToolMenu.js" afterPath="$PROJECT_DIR$/src/ToolMenu.js" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -20,8 +16,8 @@
       <file leaf-file-name="ToolMenu.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/ToolMenu.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="802">
-              <caret line="69" column="18" lean-forward="false" selection-start-line="69" selection-start-column="18" selection-end-line="69" selection-end-column="18" />
+            <state relative-caret-position="622">
+              <caret line="79" column="18" lean-forward="false" selection-start-line="79" selection-start-column="18" selection-end-line="79" selection-end-column="18" />
               <folding>
                 <element signature="e#9#39#0" expanded="true" />
               </folding>
@@ -446,12 +442,12 @@
       <workItem from="1516559554347" duration="2131000" />
       <workItem from="1516563053505" duration="2180000" />
       <workItem from="1516566643054" duration="3282000" />
-      <workItem from="1517163662573" duration="35000" />
+      <workItem from="1517163662573" duration="108000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="29987000" />
+    <option name="totallyTimeSpent" value="30060000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="390" y="22" width="1088" height="1178" extended-state="0" />
@@ -756,6 +752,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
           <caret line="10" column="0" lean-forward="false" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -878,8 +875,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/ToolMenu.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="802">
-          <caret line="69" column="18" lean-forward="false" selection-start-line="69" selection-start-column="18" selection-end-line="69" selection-end-column="18" />
+        <state relative-caret-position="622">
+          <caret line="79" column="18" lean-forward="false" selection-start-line="79" selection-start-column="18" selection-end-line="79" selection-end-column="18" />
           <folding>
             <element signature="e#9#39#0" expanded="true" />
           </folding>

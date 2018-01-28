@@ -43,16 +43,26 @@ export class ActionManager {
 
   _activeAction: Action
 
-  _menu: ToolMenu
+  _menu: ActionMenu
 
   constructor (game: Phaser.Game) {
-    this._menu = new ToolMenu(game)
-    const action = new HasteAction(game)
-    this._menu.addButton(action.key, new JumpButton(game, () => this.setAction(action)))
-    //this._menu.addButton('test', new JumpButton(game, () => this.setAction(action)))
+    this._menu = new ActionMenu(game)
+
+
+    const action1 = new JumpAction(game)
+    // Should read actions from config
+    this._addButton('jump-button', action1)
+    this._addButton('jump-button', new HasteAction(game))
+
+    this._menu.setActive(action1.key)
+    this._activeAction = action1
   }
 
-  get menu (): ToolMenu {
+  _addButton(assetKey, action: Action) {
+    this._menu.addButton(action.key, assetKey, () => this.setAction(action))
+  }
+
+  get menu (): ActionMenu {
     return this._menu
   }
 
@@ -64,7 +74,7 @@ export class ActionManager {
   }
 }
 
-export class ToolMenu extends Phaser.Group {
+export class ActionMenu extends Phaser.Group {
   _buttons: Map<string, Phaser.Button>
 
   spacing: number;
@@ -72,30 +82,37 @@ export class ToolMenu extends Phaser.Group {
 
   constructor (game: Phaser.Game) {
     super(game, null, 'ToolMenu')
-
+    this._buttonOffset = 50
     this._buttons = new Map()
     this.fixedToCamera = true
     this.cameraOffset.setTo(0, 0)
   }
 
-  addButton (key: string, button: Button) {
+  addButton (key: string, assetKey, callback: Function) {
+    const x = this._buttonOffset * this._buttons.size
+    const button = new Button(this.game, x, 0, assetKey, callback)
     this._buttons.set(key, button)
     this.add(button)
   }
 
   setActive(key: string) {
-
     for (const btn of this._buttons.values()) {
       console.log(btn);
       btn.setActive(false)
     }
 
     const btn = this._buttons.get(key)
+    console.log(btn)
     if(btn) {
       btn.setActive(true)
     }
   }
+
+  activateFirst() {
+    this.setActive(this._buttons.keys().first)
+  }
 }
+
 
 class Button extends Phaser.Button {
   constructor (game: Phaser.Game,
@@ -110,15 +127,11 @@ class Button extends Phaser.Button {
 
   setActive(val: bool) {
     if(val) {
-      this.setFrames(1, 2, 0)
+      this.setFrames(2, 2, 2)
     } else {
       this.setFrames(1, 0, 2)
     }
   }
 }
 
-export class JumpButton extends Button {
-  constructor (game: Phaser.Game, callback: Function) {
-    super(game, 50, 50, 'jump-button', callback, game)
-  }
-}
+
