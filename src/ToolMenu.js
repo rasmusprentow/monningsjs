@@ -27,6 +27,18 @@ export class JumpAction extends Action {
   }
 }
 
+export class HasteAction extends Action {
+
+  constructor (game: Phaser.Game) { super(game, 'haste')}
+
+  execute (actor: Actor){
+    actor.currentSpeed = actor.hasteSpeed
+    setTimeout(() => {
+      actor.currentSpeed = actor.walkingSpeed
+    }, 1000)
+  }
+}
+
 export class ActionManager {
 
   _activeAction: Action
@@ -35,9 +47,9 @@ export class ActionManager {
 
   constructor (game: Phaser.Game) {
     this._menu = new ToolMenu(game)
-    const action = new JumpAction(game)
+    const action = new HasteAction(game)
     this._menu.addButton(action.key, new JumpButton(game, () => this.setAction(action)))
-    this._menu.addButton('test', new JumpButton(game, () => this.setAction(action)))
+    //this._menu.addButton('test', new JumpButton(game, () => this.setAction(action)))
   }
 
   get menu (): ToolMenu {

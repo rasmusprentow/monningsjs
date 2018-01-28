@@ -111887,7 +111887,7 @@ class Actor extends __WEBPACK_IMPORTED_MODULE_0_phaser_ce___default.a.Sprite {
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(/*! babel-polyfill */132);
-module.exports = __webpack_require__(/*! /Users/prentow/Documents/privat/monningsjs/src/main.js */334);
+module.exports = __webpack_require__(/*! /Users/simone/monningsjs/src/main.js */334);
 
 
 /***/ }),
@@ -118495,12 +118495,13 @@ const Direction = {
   left: -1,
   right: 1
 };
-
 /* harmony default export */ __webpack_exports__["a"] = (class extends __WEBPACK_IMPORTED_MODULE_1__actor__["a" /* Actor */] {
   constructor(game, x, y, asset) {
     super(game, x, y, asset);
     this.direction = Direction.right;
     this.walkingSpeed = 150;
+    this.hasteSpeed = 300;
+    this.currentSpeed = this.walkingSpeed;
     //  We need to enable physics on the player
     game.physics.arcade.enable(this);
 
@@ -118525,7 +118526,7 @@ const Direction = {
       this.direction = -1;
     }
 
-    this.body.velocity.x = this.direction * this.walkingSpeed;
+    this.body.velocity.x = this.direction * this.currentSpeed;
     if (this.direction === 1) {
       this.animations.play('right');
     } else if (this.direction === -1) {
@@ -118565,7 +118566,7 @@ class Actor extends __WEBPACK_IMPORTED_MODULE_0_phaser_ce___default.a.Sprite {
 /*!*************************!*\
   !*** ./src/ToolMenu.js ***!
   \*************************/
-/*! exports provided: Action, JumpAction, ActionManager, ToolMenu, JumpButton */
+/*! exports provided: Action, JumpAction, HasteAction, ActionManager, ToolMenu, JumpButton */
 /*! exports used: ActionManager */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -118603,13 +118604,29 @@ class JumpAction extends Action {
 /* unused harmony export JumpAction */
 
 
+class HasteAction extends Action {
+
+  constructor(game) {
+    super(game, 'haste');
+  }
+
+  execute(actor) {
+    actor.currentSpeed = actor.hasteSpeed;
+    setTimeout(() => {
+      actor.currentSpeed = actor.walkingSpeed;
+    }, 1000);
+  }
+}
+/* unused harmony export HasteAction */
+
+
 class ActionManager {
 
   constructor(game) {
     this._menu = new ToolMenu(game);
-    const action = new JumpAction(game);
+    const action = new HasteAction(game);
     this._menu.addButton(action.key, new JumpButton(game, () => this.setAction(action)));
-    this._menu.addButton('test', new JumpButton(game, () => this.setAction(action)));
+    //this._menu.addButton('test', new JumpButton(game, () => this.setAction(action)))
   }
 
   get menu() {

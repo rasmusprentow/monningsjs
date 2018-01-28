@@ -7,12 +7,13 @@ const Direction = {
   left: -1,
   right: 1
 }
-
 export default class extends Actor {
   constructor (game: Phaser.Game, x: number, y: number, asset) {
     super(game, x, y, asset)
     this.direction = Direction.right
     this.walkingSpeed = 150
+    this.hasteSpeed = 300
+    this.currentSpeed = this.walkingSpeed
     //  We need to enable physics on the player
     game.physics.arcade.enable(this)
 
@@ -40,7 +41,7 @@ export default class extends Actor {
       this.direction = -1
     }
 
-    this.body.velocity.x = this.direction * this.walkingSpeed
+    this.body.velocity.x = this.direction * this.currentSpeed
     if (this.direction === 1) {
       this.animations.play('right')
     } else if (this.direction === -1) {
